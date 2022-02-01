@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: customers
+    description: one record per customer with fields from order
+    columns:
+      - name: customer_id
+        description: primary key of the model
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_customers
+    description: staging area for customer related data
+    columns:
+      - name: customer_id
+        description: primary key of the staging area
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_orders
+    description: staging area for order related data
+    columns:
+      - name: order_id
+        description: primary key of the staging area
+        tests:
+          - unique
+          - not_null
+      - name: status
+        description: status of the order (placed / shipped / completed / return_pending / returned)
+        tests:
+          - accepted_values:
+              values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+      - name: customer_id
+        description: foreign key for the stg_customers table
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
