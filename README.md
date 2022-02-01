@@ -1,5 +1,4 @@
 Welcome to your new dbt project!
-#Addition by Anas
 ### Using the starter project
 
 Try running the following commands:
